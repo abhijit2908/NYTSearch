@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NYC</title>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+<div>
+<p>SeachTearm:</p>
+<input type="text" name="search" id-="searchTerm"></input><br>
+<p>Limit</p>
+<input type="text" name="page" id="page"></input><br>
+<p>StarYear</p>
+<input type="text" name="StarYear" id=starYear></input><br>
+<p>EndYear</p>
+<input type="text" name="EndYear" id="endYear"></input><br>
+
+<button id="SearchButton">SearchButton</button><br>
+
+<button id="clearResults">ClearResults</button><br>
+</div>
+
+<div id="searchResults">Search Results</div>
+
+
+
+<script>
+
+// var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+
+var q = $("#searchTerm").val();
+var startYear = $("#starYear").val();
+var endYear =  $("#endYear").val();
+// var page =  $("#page").val();
+
+
+// var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+
+// var q = "india";
+// var startYear = "20160810";
+// var endYear = "20170829";
+// var page =  10;
+
+
+$("#SearchButton").on("click", function() {
+
+
+var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+
+q = $("#searchTerm").val();
+startYear = $("#starYear").val();
+endYear =  $("#endYear").val();
+// var page =  $("#page").val();
+
+
+		url += '?' + $.param({
+		  'api-key': "ac86ca842e7d4a18aa7da113b2ed1bbf",
+		  'q': q,
+		  'begin_date': startYear,
+		  'end_date': endYear
+		  
+		});
+
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+ 	 
+ 	 console.log(result);
+
+ 	 $("#searchResults").append(result.response.docs[0].headline.main);
+
+ 	 // console.log(result.response.docs[0].headline.main);
+ 	 // console.log(result.response.docs.length);
+
+
+
+});
+
+});
+
+
+</script>
+
+
+
+
+</body>
+</html>
